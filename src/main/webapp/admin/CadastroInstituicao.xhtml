@@ -1,0 +1,48 @@
+
+<ui:composition template="/WEB-INF/template/LayoutPadraoAdmin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Cadastro Instituição</ui:define>
+
+
+	<ui:define name="corpo">
+	
+	<f:metadata>
+			<o:viewParam name="instituicao" value="#{cadastroInstituicaoBean.instituicao}" />
+			<o:viewParam name="endereco" value="#{cadastroInstituicaoBean.endereco}" />
+
+		</f:metadata>
+		
+			<h1 style="margin-top: 30px">Nova Instituição</h1>
+			<p:messages autoUpdate="true" />
+			<h:form>
+			
+			<p:toolbar style="margin-top: 30px">
+
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/admin/CadastroInstituicao.xhtml" />
+					<p:commandButton value="Salvar" action="#{cadastroInstituicaoBean.cadastrarInstituicao()}" update="@form"  id="botaoSalvar" />
+
+				</p:toolbarGroup>
+
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar"
+						outcome="/admin/PesquisaInstituicao.xhtml" />
+
+
+				</p:toolbarGroup>
+
+			</p:toolbar>
+
+			<ui:include src="/include/cadastroInstituicao.xhtml" />
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

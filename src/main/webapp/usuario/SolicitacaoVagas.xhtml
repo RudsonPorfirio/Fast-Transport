@@ -1,0 +1,203 @@
+
+<ui:composition template="/WEB-INF/template/LayoutPadraoUsuario.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa Usuario</ui:define>
+
+
+	<ui:define name="corpo">
+		<h:form >
+			<f:metadata>
+				<f:viewParam name="lalala" />
+
+				<f:event listener="#{pesquisaSolicitacaoBean.verSolicitacao()}"
+					type="preRenderView" />
+				<f:event listener="#{pesquisaMotoristaBean.solicitacaoVagas()}"
+					type="preRenderView" />
+				<f:event listener="#{cadastroSolicitacaoBean.inicializar()}"
+					type="preRenderView" />
+			</f:metadata>
+
+
+			<h1 style="margin-top: 30px">Procurar Vagas</h1>
+
+
+			<p:toolbar style="margin-top: 30px">
+
+				<p:toolbarGroup>
+					<p:button value="Limpar" outcome="/usuario/SolicitacaoVagas.xhtml" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:commandButton value="Enviar Solicitação"
+						action="#{cadastroSolicitacaoBean.salvarSolicitacao()}"
+						update="@form" />
+				</p:toolbarGroup>
+
+			</p:toolbar>
+			<p:messages autoUpdate="true" />
+			
+			
+
+			<p:dataTable id="motoristaTable" var="motorista"
+				style="margin-top:20px" emptyMessage="Nenhum motorista encotrado"
+				rows="5" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom"
+				value="#{pesquisaMotoristaBean.motoristaFiltrados}">
+			
+			
+				<p:column headerText="Nome" style="width: 100px;">
+					<h:outputText value="#{motorista.nome}" />
+				</p:column>
+
+				<p:column headerText="Telefone Celular" style="width: 100px;">
+					<h:outputText value="#{motorista.celular}" />
+				</p:column>
+				<p:column headerText="Telefone Celular 2" style="width: 100px;">
+					<h:outputText value="#{motorista.celular2}" />
+				</p:column>
+
+				<p:column headerText="Status" style="width: 100px;">
+					<h:outputText value="#{motorista.statusMotorista}" />
+				</p:column>
+
+
+				<p:column headerText="Email" style="width: 100px;">
+					<h:outputText value="#{motorista.email}" />
+				</p:column>
+
+				<p:column headerText="Tipo" style="width: 100px;">
+					<h:outputText value="#{motorista.veiculo.tipo}" />
+				</p:column>
+
+
+				<p:column headerText="Vagas Disponiveis" style="width: 100px;">
+					<h:outputText value="#{motorista.veiculo.vagasDisponiveis}" />
+				</p:column>
+
+				<p:column style="width: 100px;">
+
+					<p:commandLink value="Selecionar Motorista"
+						title="Selecionar motorista" update="@form">
+						<f:setPropertyActionListener
+							target="#{cadastroSolicitacaoBean.motoristaSelecionada}"
+							value="#{motorista}" />
+					</p:commandLink>
+
+
+				</p:column>
+
+			</p:dataTable>
+			
+			
+			
+			
+			
+			
+			
+			
+			<p:separator />
+			<p:tabView>
+
+				<p:tab title="Dados do Motorista">
+					<p:panelGrid columnClasses="rotulo, campo" columns="2"
+						id="painelDados" style="margin-top:20px; width:100%">
+
+						<p:outputLabel value="Nome" for="nome" />
+						<p:outputLabel id="nome" size="70"
+							value="#{cadastroSolicitacaoBean.motoristaSelecionada.nome}" />
+
+						<p:outputLabel value="Telefone" for="telefone" />
+						<p:outputLabel id="telefone" size="12" maxlength="11"
+							styleClass="phone"
+							value="#{cadastroSolicitacaoBean.motoristaSelecionada.telefone}" />
+
+						<p:outputLabel value="Celular" for="celular" />
+						<p:outputLabel id="celular" size="12" maxlength="11"
+							required="true" styleClass="phone"
+							value="#{cadastroSolicitacaoBean.motoristaSelecionada.celular}" />
+
+						<p:outputLabel value="Celular" for="celular2" />
+						<p:outputLabel id="celular2" size="12" maxlength="11"
+							styleClass="phone"
+							value="#{cadastroSolicitacaoBean.motoristaSelecionada.celular2}" />
+
+						<p:outputLabel value="Email" for="email" />
+						<p:outputLabel id="email" size="30" required="true" match="cEmail"
+							value="#{cadastroSolicitacaoBean.motoristaSelecionada.email}" />
+
+
+
+					</p:panelGrid>
+				</p:tab>
+				<p:tab title="Dados Destino">
+
+					<p:panelGrid columnClasses="rotulo, campo" columns="2"
+						id="painelDestino" style="margin-top:20px; width:100%">
+
+						<p:outputLabel value="Instituição" for="intituicao" />
+						<p:selectOneMenu id="intituicao"
+							value="#{cadastroSolicitacaoBean.instituicaoSelecionada}">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItems
+								value="#{cadastroSolicitacaoBean.listaInstituicao}"
+								var="instituicao" itemValue="#{instituicao}"
+								itemLabel="#{instituicao.nome}" />
+							<p:ajax listener="#{cadastroSolicitacaoBean.preencherCampos()}"
+								update="@form" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Cep" for="cep" />
+						<p:outputLabel id="cep" size="10" maxlength="8" required="true"
+							styleClass="masckcep"
+							value="#{cadastroSolicitacaoBean.enderecoDestino.cep}" />
+
+						<p:outputLabel value="Logradouro" for="logradouro" />
+						<p:outputLabel id="logradouro" size="70" required="true"
+							value="#{cadastroSolicitacaoBean.enderecoDestino.logradouro}" />
+
+						<p:outputLabel value="Cidade" for="cidade" />
+						<p:outputLabel id="cidade" size="30" required="true"
+							value="#{cadastroSolicitacaoBean.enderecoDestino.cidade}" />
+
+						<p:outputLabel value="Bairro" for="bairro" />
+						<p:outputLabel id="bairro" size="30" required="true"
+							value="#{cadastroSolicitacaoBean.enderecoDestino.bairro}" />
+							
+							
+						
+							
+					</p:panelGrid>
+				</p:tab>
+
+				<p:tab title="Horários">
+
+					<p:panelGrid columnClasses="rotulo, campo" columns="2"
+						id="painelHorarios" style="margin-top:20px; width:100%">
+
+
+						<p:outputLabel for="time" value="Horário de partida" />
+						<p:calendar id="time"
+							value="#{cadastroSolicitacaoBean.solicitacao.horaIda}"
+							pattern="HH:mm a" timeOnly="true" />
+
+						<p:outputLabel for="time2" value="Horário de retorno" />
+						<p:calendar id="time2"
+							value="#{cadastroSolicitacaoBean.solicitacao.horaVolta}"
+							pattern="HH:mm a" timeOnly="true" />
+
+					</p:panelGrid>
+				</p:tab>
+
+			</p:tabView>
+
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

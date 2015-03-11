@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head />
+<body>
+	<ui:composition>
+
+		<h:form>
+
+			<p:tabView effect="fade" effectDuration="fast">
+
+				<p:tab title="Dados Pessoais">
+					<p:panelGrid columnClasses="rotulo, campo" columns="2"
+						id="painelDados" style="margin-top:20px; width:100%">
+
+						<p:outputLabel value="Nome" for="nome" />
+						<p:inputText id="nome" size="70"
+							value="#{cadastroMotoristaBean.motorista.nome}" />
+
+						<p:outputLabel value="CPF" for="cpf" />
+						<p:inputMask id="cpf" size="12" maxlength="11" required="true"
+							mask="999.999.999-99"
+							value="#{cadastroMotoristaBean.motorista.cpf}" />
+
+						<p:outputLabel value="RG" for="rg" />
+						<p:inputMask id="rg" size="12" maxlength="9" required="true"
+						mask="9.999.999"
+							value="#{cadastroMotoristaBean.motorista.rg}" />
+
+						<p:outputLabel value="Telefone" for="telefone" />
+						<p:inputMask id="telefone" size="12" maxlength="11" 
+						mask="(999) 999-9999"
+							value="#{cadastroMotoristaBean.motorista.telefone}" />
+							
+							<p:outputLabel value="Celular" for="celular" />
+						<p:inputMask id="celular" size="12" maxlength="11" required="true"
+							mask="(999) 999-9999"
+							value="#{cadastroMotoristaBean.motorista.celular}" />
+							
+							<p:outputLabel value="Celular" for="celular2" />
+						<p:inputMask id="celular2" size="12" maxlength="11" 
+							mask="(999) 999-9999"
+							value="#{cadastroMotoristaBean.motorista.celular2}" />
+
+						<p:outputLabel value="CNH" for="cnh" />
+						<p:inputMask id="cnh" size="12" maxlength="11" required="true"
+							mask="99999999999"
+							value="#{cadastroMotoristaBean.motorista.cnh}" />
+
+						<p:outputLabel value="Email" for="email" />
+						<p:inputText id="email" size="30" required="true" match="cEmail"
+							value="#{cadastroMotoristaBean.motorista.email}" />
+
+						<p:outputLabel value="Confirmação de Email" for="cEmail" />
+						<p:inputText id="cEmail" size="30" match="email"  required="true"></p:inputText>
+
+						<h:outputLabel value="Senha" />
+						<h:outputLabel style="color: red"
+							value="Senha será Gerada automaticamente e enviada para o email." />
+
+					</p:panelGrid>
+				</p:tab>
+				<p:tab title="Endereço">
+
+					<p:panelGrid columnClasses="rotulo, campo" columns="2"
+						id="painelEndereco" style="margin-top:20px; width:100%">
+
+						<p:outputLabel value="Cep" for="cep" />
+						<p:inputMask id="cep" size="10" maxlength="8" required="true"
+							mask="99999-999"
+							value="#{cadastroMotoristaBean.endereco.cep}" />
+
+						<p:outputLabel value="Logradouro" for="logradouro" />
+						<p:inputText id="logradouro" size="70" required="true"
+							value="#{cadastroMotoristaBean.endereco.logradouro}" />
+
+						<p:outputLabel value="Cidade" for="cidade" />
+						<p:inputText id="cidade" size="30" required="true"
+							value="#{cadastroMotoristaBean.endereco.cidade}" />
+
+						<p:outputLabel value="Bairro" for="bairro" />
+						<p:inputText id="bairro" size="30" required="true"
+							value="#{cadastroMotoristaBean.endereco.bairro}" />
+
+					</p:panelGrid>
+
+				</p:tab>
+
+				<p:tab title="Dados do Veículo">
+
+
+					<p:panelGrid columnClasses="rotulo, campo" columns="2"
+						id="painelVeiculo" style="margin-top:20px; width:100%">
+
+						<p:outputLabel value="Tipo" for="tipo" />
+						<p:inputText id="tipo" size="30" maxlength="18" required="true"
+							value="#{cadastroMotoristaBean.veiculo.tipo}" />
+
+						<p:outputLabel value="Modelo" for="modelo" />
+						<p:inputText id="modelo" size="20" required="true" maxlength="17"
+							value="#{cadastroMotoristaBean.veiculo.modelo}" />
+
+						<p:outputLabel value="Placa" for="placa" />
+						<p:inputMask id="placa" size="10" required="true" maxlength="7"
+							mask="aaa-9999"
+							value="#{cadastroMotoristaBean.veiculo.placa}" />
+
+						<p:outputLabel value="Cor" for="cor" />
+						<p:inputText id="cor" size="20" required="true" maxlength="17"
+							value="#{cadastroMotoristaBean.veiculo.cor}" />
+
+						<p:outputLabel value="Ano de Fabricação" for="ano" />
+						<p:inputMask id="ano" size="8" required="true" maxlength="4"
+							mask="9999"
+							value="#{cadastroMotoristaBean.veiculo.ano}" />
+
+
+						<p:outputLabel value="Vagas" for="vagas" />
+						<p:inputMask id="vagas" size="5" required="true" maxlength="2"
+							value="#{cadastroMotoristaBean.veiculo.vagas}" mask="99"/>
+
+						<p:outputLabel value="Vagas Disponiveis" for="vagasd" />
+						<p:inputMask id="vagasd" size="5" required="true" maxlength="2" mask="99"
+							value="#{cadastroMotoristaBean.veiculo.vagasDisponiveis}" />
+
+					</p:panelGrid>
+
+				</p:tab>
+			</p:tabView>
+
+		</h:form>
+
+	</ui:composition>
+</body>
+</html>

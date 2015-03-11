@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head />
+<body>
+	<ui:composition>
+
+		<p:tabView effect="fade" effectDuration="fast" style="margin-top:20px;">
+
+
+
+		<p:panelGrid columnClasses="rotulo, campo" columns="2" id="painel"
+			style="margin-top:20px; width:100%">
+<p:tab>
+			<p:outputLabel value="Nome completo" for="nome" />
+			<p:inputText id="nome" size="70" required="true"></p:inputText>
+
+			<p:outputLabel value="Data Nascimento" for="dnascimento" />
+			<p:inputText id="dnascimento" size="8"  required="true" styleClass="masckdata"></p:inputText>
+
+			<p:outputLabel value="CPF" for="cpf" />
+			<p:inputText id="cpf" size="12" maxlength="11" required="true"
+				styleClass="masckcpf"></p:inputText>
+
+			<p:outputLabel value="RG" for="rg" />
+			<p:inputText id="rg" size="12" maxlength="8" required="true"
+				styleClass="masckrg"></p:inputText>
+
+			
+			</p:tab>
+			
+			<p:outputLabel value="Cep" for="cep" />
+			<p:inputText id="cep" size="10" maxlength="8" required="true"
+				styleClass="masckcep"></p:inputText>
+
+			<p:outputLabel value="Logradouro" for="logradouro" />
+			<p:inputText id="logradouro" size="70" required="true"></p:inputText>
+
+			<p:outputLabel value="Bairro" for="bairro" />
+			<p:inputText id="bairro" size="30" required="true"></p:inputText>
+
+			<p:outputLabel value="Cidade" for="cidade" />
+			<p:inputText id="cidade" size="30" required="true"></p:inputText>
+
+
+			<p:outputLabel value="T.Residencial" for="residencial" />
+			<p:inputText id="residencial" size="13" styleClass="phone"></p:inputText>
+
+
+			<p:outputLabel value="T.Celular" for="celular" />
+			<p:inputText id="celular" size="13" required="true"
+				styleClass="phone"></p:inputText>
+
+			<p:outputLabel value="T.Celular 2" for="celular2" />
+			<p:inputText id="celular2" size="13" styleClass="phone"></p:inputText>
+
+			<p:outputLabel value="Email" for="email" />
+			<p:inputText id="email" size="30" required="true"></p:inputText>
+
+			<p:outputLabel value="Confirmação de Email" for="cEmail" />
+			<p:inputText id="cEmail" size="30" required="true"></p:inputText>
+
+			<h:outputLabel value="Senha" for="senha"/>
+			<p:password id="senha" size="30" required="true"></p:password>
+			
+			<h:outputLabel value="Confirma Senha" for="csenha"/>
+			<p:password id="csenha" size="30" required="true"></p:password>
+
+
+		</p:panelGrid>
+
+
+</p:tabView>
+
+
+	</ui:composition>
+</body>
+</html>

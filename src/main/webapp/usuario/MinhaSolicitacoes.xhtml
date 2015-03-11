@@ -1,0 +1,79 @@
+
+<ui:composition template="/WEB-INF/template/LayoutPadraoUsuario.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa Usuario</ui:define>
+
+
+	<ui:define name="corpo">
+
+
+		<h:form>
+			<h1 style="margin-top: 30px">Procurar Vagas</h1>
+
+			<p:toolbar style="margin-top: 30px">
+
+
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisa"
+						action="#{pesquisaMotoristaBean.solicitacaoVagas()}"  update="@form" />
+				</p:toolbarGroup>
+
+
+			</p:toolbar>
+
+
+			
+
+			<p:dataTable id="motoristaTable" var="motorista"
+				style="margin-top:20px" emptyMessage="Nenhum motorista encotrado"
+				rows="5" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom"
+				value="#{pesquisaMotoristaBean.motoristaFiltrados}">
+				<p:column headerText="Nome" style="width: 100px;">
+					<h:outputText value="#{motorista.nome}" />
+				</p:column>
+
+				<p:column headerText="Telefone Celular" style="width: 100px;">
+					<h:outputText value="#{motorista.celular}" />
+				</p:column>
+				<p:column headerText="Telefone Celular 2" style="width: 100px;">
+					<h:outputText value="#{motorista.celular2}" />
+				</p:column>
+
+				<p:column headerText="Status" style="width: 100px;">
+					<h:outputText value="#{motorista.statusMotorista}" />
+				</p:column>
+
+
+				<p:column headerText="Email" style="width: 100px;">
+					<h:outputText value="#{motorista.email}" />
+				</p:column>
+
+				<p:column headerText="Tipo" style="width: 100px;">
+					<h:outputText value="#{motorista.veiculo.tipo}" />
+				</p:column>
+
+
+				<p:column headerText="Vagas Disponiveis" style="width: 100px;">
+					<h:outputText value="#{motorista.veiculo.vagasDisponiveis}" />
+				</p:column>
+
+				<p:column style="width: 100px;">
+
+					<p:button icon="ui-icon-info" title="Detalhe do Motorista" />
+					<p:button icon="ui-icon-power" title="Solicitar Vaga" />
+				</p:column>
+
+			</p:dataTable>
+
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

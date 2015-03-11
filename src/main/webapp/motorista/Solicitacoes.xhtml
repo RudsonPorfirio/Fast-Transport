@@ -1,0 +1,112 @@
+<ui:composition template="/WEB-INF/template/LayoutPadraoMotorista.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title><ui:insert name="titulo">Pagina de Login</ui:insert></title>
+		<h:outputStylesheet library="css" name="sistema.css" />
+	</h:head>
+
+
+
+	<ui:define name="corpo">
+		<h:form id="frmSolicitacao">
+
+			<f:metadata>
+				<f:viewParam name="lalala" />
+				<f:event listener="#{pesquisaSolicitacaoBean.motoSolicitacao()}"
+					type="preRenderView" />
+			</f:metadata>
+
+			<p:dataTable id="solicitaTable" var="solicitacao"
+				style="margin-top:90px"
+				emptyMessage="Nenhuma solicitação encontrada" rows="5"
+				paginator="true" paginatorAlwaysVisible="true"
+				paginatorPosition="bottom"
+				value="#{pesquisaSolicitacaoBean.listSolicitacao}">
+
+				<f:facet name="header">
+        Todas Solicitações
+    </f:facet>
+
+
+				<p:column headerText="Usuário" style="width: 100px;">
+					<h:outputText value="#{solicitacao.usuario.nome}" />
+				</p:column>
+
+				<p:column headerText="Celular" style="width: 100px;">
+					<h:outputText value="#{solicitacao.usuario.celular}" />
+				</p:column>
+
+				<p:column headerText="Cep" style="width: 100px;">
+					<h:outputText value="#{solicitacao.usuario.endereco.cep}" />
+				</p:column>
+
+				<p:column headerText="Bairro" style="width: 100px;">
+					<h:outputText value="#{solicitacao.usuario.endereco.bairro}" />
+				</p:column>
+				<p:column headerText="Logradouro" style="width: 100px;">
+					<h:outputText value="#{solicitacao.usuario.endereco.logradouro}" />
+				</p:column>
+
+				<p:column headerText="" style="width: 1px;">
+
+				</p:column>
+
+				<p:column headerText="Instiuição" style="width: 100px;">
+					<h:outputText
+						value="#{solicitacao.enderecoDestino.intituicao.nome}" />
+				</p:column>
+
+				<p:column headerText="H.Partida" style="width: 100px;">
+					<h:outputText value="#{solicitacao.horaIda}">
+						<f:convertDateTime pattern="HH:mm a" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="H. Retorno" style="width: 100px;">
+					<h:outputText value="#{solicitacao.horaVolta}">
+						<f:convertDateTime pattern="HH:mm a" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="" style="width: 1px;">
+
+				</p:column>
+
+				<p:column headerText="Status " style="width: 100px;">
+
+
+					<p:commandButton icon="ui-icon-power"
+						title="Aceitar solicitação do Usuario"
+						oncomplete="aceitarUsuario.show()" process="@this"
+						update=":frmSolicitacao:aceitarUsuarioDialog">
+						<f:setPropertyActionListener
+							target="#{pesquisaSolicitacaoBean.solicitacaoSelecionada}"
+							value="#{solicitacao}" />
+					</p:commandButton>
+
+				</p:column>
+
+			</p:dataTable>
+
+
+
+			<p:confirmDialog header="Alterar o Status do Motorist"
+				message="Tem certeza que deseja aceitar a solicitação do usuario :  #{pesquisaSolicitacaoBean.solicitacaoSelecionada.usuario.nome}?"
+				widgetVar="aceitarUsuario" id="aceitarUsuarioDialog">
+				<p:button value="Não" onclick="aceitarUsuario.hide(); return false;" />
+				<p:commandButton value="Sim" oncomplete="aceitarUsuario.hide();"
+					action="#{pesquisaSolicitacaoBean.aceitarSolicitacacao()}"
+					process="@this" update=":frmSolicitacao:solicitaTable" />
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

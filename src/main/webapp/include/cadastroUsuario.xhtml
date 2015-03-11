@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head />
+<body>
+	<ui:composition>
+
+
+		
+
+		<h:form>
+
+			<p:tabView effect="fade" effectDuration="fast"
+				style="margin-top:20px;">
+				<p:tab title="Dados Pessoais">
+					<p:panelGrid columnClasses="rotulo, campo" columns="2" id="painel"
+						style="margin-top:20px; width:100%">
+
+						<p:outputLabel value="Nome completo" for="nome" />
+						<p:inputText id="nome" size="70" required="true"
+							value="#{cadastroUsuarioBean.usuario.nome}" />
+
+						<p:outputLabel value="CPF" for="cpf" />
+						<p:inputMask id="cpf" size="12" maxlength="11" required="true"
+						mask="999.999.999-99" value="#{cadastroUsuarioBean.usuario.cpf}" />
+
+						<p:outputLabel value="RG" for="rg" />
+						<p:inputMask id="rg" size="12" maxlength="8" required="true"
+							mask="9.999.999"
+							 value="#{cadastroUsuarioBean.usuario.rg}" />
+
+
+						<p:outputLabel value="T.Residencial" for="residencial" />
+						<p:inputMask  id="residencial" size="13" mask="(99) 9999-9999"
+							value="#{cadastroUsuarioBean.usuario.telefone}" />
+
+
+						<p:outputLabel value="T.Celular" for="celular" />
+						<p:inputMask id="celular" size="13" required="true"
+							mask="(99) 9999-9999" value="#{cadastroUsuarioBean.usuario.celular}" />
+
+						<p:outputLabel value="T.Celular 2" for="celular2" />
+						<p:inputMask  id="celular2" size="13" mask="(99) 9999-9999"
+							value="#{cadastroUsuarioBean.usuario.celular2}" />
+
+						<p:outputLabel value="Email" for="email" />
+						<p:inputText id="email" size="30" required="true"
+							value="#{cadastroUsuarioBean.usuario.email}" />
+
+						<p:outputLabel value="Confirmação de Email" for="cEmail" />
+						<p:inputText id="cEmail" size="30" required="true" value="#{cadastroUsuarioBean.usuario.email}"  />
+
+						<h:outputLabel value="Senha" />
+						<h:outputLabel style="color: red"
+							value="Senha será Gerada automaticamente e enviada para o email." />
+
+
+					</p:panelGrid>
+				</p:tab>
+
+				<p:tab title="Endereço">
+
+					<p:panelGrid columnClasses="rotulo, campo" columns="2"
+						id="painelEndereco" style="margin-top:20px; width:100%">
+
+
+						<p:outputLabel value="Cep" for="cep" />
+						<p:inputMask  id="cep" size="10" maxlength="8" required="true"
+							mask="99999-999" value="#{cadastroUsuarioBean.endereco.cep}" />
+
+						<p:outputLabel value="Logradouro" for="logradouro" />
+						<p:inputText id="logradouro" size="70" required="true"
+							value="#{cadastroUsuarioBean.endereco.logradouro}" />
+
+						<p:outputLabel value="Bairro" for="bairro" />
+						<p:inputText id="bairro" size="30" required="true"
+							value="#{cadastroUsuarioBean.endereco.bairro}" />
+
+						<p:outputLabel value="Cidade" for="cidade" />
+						<p:inputText id="cidade" size="30" required="true"
+							value="#{cadastroUsuarioBean.endereco.cidade}" />
+
+
+
+					</p:panelGrid>
+				</p:tab>
+			</p:tabView>
+
+		</h:form>
+
+	</ui:composition>
+</body>
+</html>

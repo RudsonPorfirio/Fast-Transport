@@ -1,0 +1,154 @@
+
+<ui:composition template="/WEB-INF/template/LayoutPadraoAdmin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Motorista</ui:define>
+
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+			<h1 style="margin-top: 30px">Pesquisar Motorista</h1>
+
+			<p:toolbar style="margin-top: 30px">
+
+
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar"
+						action="#{pesquisaMotoristaBean.pesquisar}" update="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/admin/CadastroMotorista.xhtml" />
+
+				</p:toolbarGroup>
+
+			</p:toolbar>
+
+
+			<p:panelGrid columnClasses="rotulo, campo" columns="2" id="painel"
+				style="margin-top:20px; width:100%">
+
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" size="70"
+					value="#{pesquisaMotoristaBean.motorista.nome}" />
+
+				<p:outputLabel value="CPF" for="cpf" />
+				<p:inputText id="cpf" size="12" styleClass="masckcpf"
+					value="#{pesquisaMotoristaBean.motorista.cpf}" />
+
+
+
+
+
+			</p:panelGrid>
+
+
+			<p:dataTable id="motoristaTable" var="motorista"
+				style="margin-top:20px" emptyMessage="Nenhum motorista encontrado"
+				rows="4" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" 
+				value="#{pesquisaMotoristaBean.motoristaFiltrados}">
+
+
+				<p:column headerText="Nome" style="width: 100px;">
+					<h:outputText value="#{motorista.nome}" />
+				</p:column>
+
+				<p:column headerText="CPF" style="width: 100px;">
+					<h:outputText value="#{motorista.cpf}" />
+				</p:column>
+
+				<p:column headerText="CEP" style="width: 100px;">
+					<h:outputText value="#{motorista.endereco.cep}" />
+				</p:column>
+
+				<p:column headerText="Telefone" style="width: 100px;">
+					<h:outputText value="#{motorista.telefone}" />
+				</p:column>
+
+				<p:column headerText="Celular" style="width: 100px;">
+					<h:outputText value="#{motorista.celular}" />
+				</p:column>
+				
+				<p:column headerText="Email" style="width: 100px;">
+					<h:outputText value="#{motorista.email}" />
+				</p:column>
+
+				<p:column headerText="Celular 2" style="width: 100px;">
+					<h:outputText value="#{motorista.celular2}" />
+				</p:column>
+
+
+				<p:column headerText="Data de cadastro" style="width: 100px;">
+					<h:outputText value="#{motorista.dataDeCadastro}" />
+				</p:column>
+
+				<p:column headerText="Status" style="width: 100px;">
+					<h:outputText value="#{motorista.statusMotorista}" />
+				</p:column>
+
+				<p:column style="width: 100px;">
+
+					<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/admin/CadastroMotorista.xhtml">
+					
+						<f:param name="motorista" value="#{motorista.id}" />
+						<f:param name="endereco" value="#{motorista.endereco.id}" />
+						<f:param name="veiculo" value="#{motorista.veiculo.id}" />
+					
+					</p:button>
+
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						oncomplete="confirmacaoExclusao.show()" process="@this"
+						update=":frmPesquisa:confirmacaoExclusaoDialog">
+						<f:setPropertyActionListener
+							target="#{pesquisaMotoristaBean.motoristaSelecionada}"
+							value="#{motorista}" />
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-power" title="Ativar Ou Desativar !"
+						oncomplete="ativarMotorista.show()" process="@this"
+						update=":frmPesquisa:ativarMotoristaDialog">
+						<f:setPropertyActionListener
+							target="#{pesquisaMotoristaBean.motoristaSelecionada}"
+							value="#{motorista}" />
+					</p:commandButton>
+
+
+				</p:column>
+
+			</p:dataTable>
+
+			<p:confirmDialog header="Alterar o Status do Motorist"
+				message="Tem certeza que deseja alterar o Status do Motorista :  #{pesquisaMotoristaBean.motoristaSelecionada.nome}?"
+				widgetVar="ativarMotorista" id="ativarMotoristaDialog">
+				<p:button value="Não"
+					onclick="ativarMotorista.hide(); return false;" />
+				<p:commandButton value="Sim"
+					oncomplete="ativarMotorista.hide();"
+					action="#{pesquisaMotoristaBean.ativarOuDesativar()}"
+					process="@this" update=":frmPesquisa:motoristaTable" />
+			</p:confirmDialog>
+
+			<p:confirmDialog header="Exclusão de Motorista"
+				message="Tem certeza que deseja excluir o Motorista :  #{pesquisaMotoristaBean.motoristaSelecionada.nome}?"
+				widgetVar="confirmacaoExclusao" id="confirmacaoExclusaoDialog">
+				<p:button value="Não"
+					onclick="confirmacaoExclusao.hide(); return false;" />
+				<p:commandButton value="Sim"
+					oncomplete="confirmacaoExclusao.hide();"
+					action="#{pesquisaMotoristaBean.excluir()}"
+					process="@this"	update=":frmPesquisa:motoristaTable" />
+			</p:confirmDialog>
+
+
+		</h:form>
+
+	</ui:define>
+
+
+</ui:composition>

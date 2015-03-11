@@ -1,0 +1,117 @@
+
+<ui:composition template="/WEB-INF/template/LayoutPadraoAdmin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Instituição</ui:define>
+
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+			<h1 style="margin-top: 30px">Pesquisar Instituição</h1>
+
+			<p:toolbar style="margin-top: 30px">
+
+
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar"
+						action="#{pesquisaInstituicaoBean.pesquisar()}" update="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/admin/CadastroInstituicao.xhtml" />
+
+				</p:toolbarGroup>
+
+			</p:toolbar>
+
+
+			<p:panelGrid columnClasses="rotulo, campo" columns="2" id="painel"
+				style="margin-top:20px; width:100%">
+
+				<p:outputLabel value="Nome " for="nome" />
+				<p:inputText id="nome" size="70"
+					value="#{pesquisaInstituicaoBean.instituicao.nome}" />
+
+
+			</p:panelGrid>
+
+			<p:dataTable id="instituicaoTable" var="instituicao"
+				style="margin-top:20px" emptyMessage="Nenhuma instituição encontrada"
+				rows="5" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom"
+				value="#{pesquisaInstituicaoBean.instituicaoFiltrados}">
+				
+				
+				<p:column headerText="Nome" style="width: 100px;">
+					<h:outputText value="#{instituicao.nome}" />
+				</p:column>
+
+
+				<p:column headerText="CEP" style="width: 100px;">
+					<h:outputText value="#{instituicao.endereco.cep}" />
+				</p:column>
+
+				<p:column headerText="Bairro" style="width: 100px;">
+					<h:outputText value="#{instituicao.endereco.bairro}" />
+				</p:column>
+
+				<p:column headerText="Telefone" style="width: 100px;">
+					<h:outputText value="#{instituicao.telefone}" />
+				</p:column>
+
+				<p:column headerText="Data de cadastro" style="width: 100px;">
+					<h:outputText value="#{instituicao.dataCadastro}" />
+				</p:column>
+
+
+				<p:column headerText="" style="width: 100px;">
+
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						oncomplete="confirmacaoExclusao.show()" process="@this"
+						update=":frmPesquisa:confirmacaoExclusaoDialog">
+						<f:setPropertyActionListener
+							target="#{pesquisaInstituicaoBean.instituicaoSelecionada}"
+							value="#{instituicao}" />
+					</p:commandButton>
+
+
+				
+
+
+<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/admin/CadastroInstituicao.xhtml">
+					
+						<f:param name="instituicao" value="#{instituicao.id}" />
+						<f:param name="endereco" value="#{instituicao.endereco.id}" />
+					
+					</p:button>
+</p:column>
+			</p:dataTable>
+
+
+
+			<p:confirmDialog header="Exclusão de Instituição"
+				message="Tem certeza que deseja excluir a instituição #{pesquisaInstituicaoBean.instituicaoSelecionada.nome}?"
+				widgetVar="confirmacaoExclusao" id="confirmacaoExclusaoDialog">
+				<p:button value="Não"
+					onclick="confirmacaoExclusao.hide(); return false;" />
+				<p:commandButton value="Sim"
+					oncomplete="confirmacaoExclusao.hide();"
+					action="#{pesquisaInstituicaoBean.excluir}" process="@this"
+					update=":frmPesquisa:instituicaoTable" />
+			</p:confirmDialog>
+
+
+		
+
+		</h:form>
+
+
+	</ui:define>
+
+
+</ui:composition>

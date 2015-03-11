@@ -1,0 +1,59 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pagina Login</ui:define>
+
+
+	<ui:define name="corpo">
+
+		<div id="login-dialog">
+
+			<H1>Login</H1>
+
+			<p:messages autoUpdate="true" />
+			<h:form id="frm">
+				<h:panelGrid columns="2" rowClasses="3" styleClass="grid-login">
+
+
+					<p:outputLabel value="Email" />
+					<p:inputText size="30" required="true" type="email" label="email"
+						value="#{autenticadorBean.usuario}" />
+
+					<p:outputLabel value="Senha" />
+					<p:password size="30" required="true" label="Senha"
+						value="#{autenticadorBean.senha}" />
+
+					<h:panelGroup />
+
+					<p:commandButton value="Login"
+						action="#{autenticadorBean.autentica()}" />
+
+				</h:panelGrid>
+
+
+				<h:panelGrid columns="2" rowClasses="5" styleClass="grid-login2">
+				
+							
+					<p:button styleClass="grid-login"   value="Cadastrar Usuário"
+						outcome="CadastroUsuario.xhtml" />
+					<p:button styleClass="grid-login" value="Cadastrar Motorista"
+						outcome="CadastroMotorista.xhtml" />
+						
+						
+						
+				</h:panelGrid>
+				
+				
+			</h:form>
+
+		</div>
+
+
+	</ui:define>
+
+
+</ui:composition>

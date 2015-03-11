@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<script type="text/javascript" src="js/jquery-1.2.6.pack.js"></script>
+	<script type="text/javascript"
+		src="js/jquery.maskedinput-1.1.4.pack.js" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:insert name="titulo">Página Principal do Administrador</ui:insert></title>
+	<h:outputStylesheet library="css" name="sistema.css" />
+</h:head>
+
+
+<h:body>
+	<p:ajaxStatus styleClass="ajax-status">
+
+		<f:facet name="status">
+			<h:graphicImage library="images" name="loading.gif" />
+		</f:facet>
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+
+	</p:ajaxStatus>
+
+
+
+	<header> <script type="text/javascript"
+		src="js/jquery-1.2.6.pack.js"></script> <script type="text/javascript"
+		src="js/jquery.maskedinput-1.1.4.pack.js" /> <script
+		type="text/javascript">$(document).ready(function(){	$(".masckcpf").mask("999.999.999-99");});</script>
+	<script type="text/javascript">$(document).ready(function(){	$(".phone").mask("(99) 9999-9999");});</script>
+	<script type="text/javascript">$(document).ready(function(){	$(".masckcnh").mask("99999999999");});</script>
+	<script type="text/javascript">$(document).ready(function(){	$(".masckrg").mask("9.999.999");});</script>
+	<script type="text/javascript">$(document).ready(function(){	$(".masckcep").mask("99999-999");});</script>
+	<script type="text/javascript">$(document).ready(function(){	$(".masckdata").mask("99/99/9999");});</script>
+	<script type="text/javascript">$(document).ready(function(){	$(".masckplaca").mask("aaa-9999");});</script>
+	<script type="text/javascript">$(document).ready(function(){	$(".masckano").mask("9999");});</script>
+
+
+
+	<div style="float: left;">
+		<h:link outcome="/admin/Principal.xhtml">
+			<h:graphicImage library="images" name="logo-fast-transport.png" />
+		</h:link>
+	</div>
+
+
+
+
+	<div style="float: right; margin-right: 110px">
+
+
+
+		<h:form style="dispay: inline-block" id = "frmsair">
+
+
+			<p:menubar styleClass="menu-sistema">
+
+				<p:submenu label="Cadastro">
+					<p:menuitem value="Usuario" outcome="/admin/CadastroUsuario.xhtml" />/>
+					<p:menuitem value="Motorista"
+						outcome="/admin/CadastroMotorista.xhtml" />
+					<p:menuitem value="Instituição"
+						outcome="/admin/CadastroInstituicao.xhtml" />
+				</p:submenu>
+				<p:submenu label="Pesquisa">
+					<p:menuitem value="Usuario" outcome="/admin/PesquisaUsuario.xhtml" />
+					<p:menuitem value="Motorista"
+						outcome="/admin/PesquisaMotorista.xhtml" />
+					<p:menuitem value="Instituição"
+						outcome="/admin/PesquisaInstituicao.xhtml" />
+				</p:submenu>
+
+
+				<p:menuitem value="Sair" 
+				update=":frmsair:confirmacaoSairDialog" 
+				 oncomplete="confirmacaoSair.show()"   />
+
+
+			</p:menubar>
+			
+				<p:confirmDialog header="Logout"
+				message="Tem certeza que deseja Sair?"
+				widgetVar="confirmacaoSair" id="confirmacaoSairDialog">
+				
+				
+				<p:button value="Não"
+					onclick="confirmacaoSair.hide(); return false;" />
+				<p:commandButton value="Sim"
+					oncomplete="confirmacaoSair.hide();" 
+					action="#{autenticadorBean.registraSaida()}" 
+					
+				 />
+			</p:confirmDialog>
+
+
+		</h:form>
+
+
+	</div>
+	
+
+	<div style="clear: both;"></div>
+
+	</header>
+
+
+	<div id="conteudo">
+		<ui:insert name="corpo" />
+	</div>
+
+	<p:separator style="margin-top: 150px" />
+
+	<footer> Sistemas Reserva de vagas para transposte alternativo
+	<!--<a href="http://bit.ly/Y8saFl" target="_blank">www.algaworks.com</a>-->
+	</footer>
+</h:body>
+</html>

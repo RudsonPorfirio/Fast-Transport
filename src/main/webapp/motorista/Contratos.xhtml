@@ -1,0 +1,73 @@
+<ui:composition template="/WEB-INF/template/LayoutPadraoMotorista.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title><ui:insert name="titulo">Pagina de Login</ui:insert></title>
+		<h:outputStylesheet library="css" name="sistema.css" />
+	</h:head>
+
+
+
+	<ui:define name="corpo">
+
+		<h:form id="frmSolicitacao">
+			<f:metadata>
+				<f:viewParam name="lalala" />
+				<f:event listener="#{pesquisaContratoBean.porMotorista()}"
+					type="preRenderView" />
+			</f:metadata>
+
+
+			<p:dataTable id="contratoTable" var="contrato"
+				style="margin-top:90px" emptyMessage="Nenhuma usuário encontrada"
+				rows="5" paginator="true" paginatorAlwaysVisible="true"
+				paginatorPosition="bottom"
+				value="#{pesquisaContratoBean.contratoMotorista}">
+
+				<f:facet name="header">
+        Todas Usuário
+    </f:facet>
+
+
+				<p:column headerText="Usuário" style="width: 100px;">
+					<h:outputText value="#{contrato.usuario.nome}" />
+				</p:column>
+
+				<p:column headerText="CPF" style="width: 100px;">
+					<h:outputText value="#{contrato.usuario.cpf}" />
+				</p:column>
+
+				<p:column headerText="CEP" style="width: 100px;">
+					<h:outputText value="#{contrato.usuario.endereco.cep}" />
+				</p:column>
+
+				<p:column headerText="Celular" style="width: 100px;">
+					<h:outputText value="#{contrato.usuario.celular}" />
+				</p:column>
+
+				
+
+				<p:column headerText="" style="width: 1px;">
+
+				</p:column>
+
+
+
+
+			</p:dataTable>
+
+
+
+
+		</h:form>
+
+
+	</ui:define>
+
+
+</ui:composition>
